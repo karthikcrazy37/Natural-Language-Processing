@@ -1,0 +1,4 @@
+Stemming is the process of transforming a word into its base form,But the disadvantage of stemming is sometimes it leads us to a meaningless word.
+Example history into histori.
+
+Lematasation is an updated version of Stemming where you will not face the disadvantage of stemming. It will transform a word into its base form in a meaningful manner.
