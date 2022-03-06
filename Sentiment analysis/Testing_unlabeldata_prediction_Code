@@ -1,0 +1,37 @@
+import pandas as pd
+import nltk
+messages=pd.read_csv("test.csv")
+messages.head()
+messages.drop("id",axis='columns',inplace=True)
+messages.head()
+#Data cleaning and preprocessing
+import re
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+ps = PorterStemmer()
+corpus = []
+for i in range(0, len(messages)):
+    review = re.sub('[^a-zA-Z]', ' ', messages['tweet'][i])
+    review = review.lower()
+    review = review.split()
+    
+    review = [ps.stem(word) for word in review if not word in stopwords.words('english')]
+    review = ' '.join(review)
+    corpus.append(review)
+# Creating the Bag of Words model
+import pickle
+from sklearn.feature_extraction.text import CountVectorizer
+cvfile='/home/karthik/Documents/sentiment_analysis/bow_model.pkl'
+cv=pickle.load(open(cvfile,'rb'))
+X_fresh=cv.transform(corpus).toarray()
+X_fresh.shape
+import joblib
+classifier_1=joblib.load('/home/karthik/Documents/sentiment_analysis/Classifier_Sentimen Model')
+y_pred=classifier_1.predict(X_fresh)
+y_pred
+messages['predictedlabels']=y_pred.tolist()
+messages.tail()
+messages.to_csv('new_predicted sentiment.csv',columns=['tweet','predictedlabels'])
+messages.head(50)
