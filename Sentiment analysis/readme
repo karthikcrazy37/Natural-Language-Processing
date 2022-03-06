@@ -1,0 +1,2 @@
+Our model is going to predict the sentiment of the user, whether they are happy or sad.
+We use the Twitter comments of 31,000 datasets to train our model, Then we are going to test with another 2000 unlabeled datasets. 
